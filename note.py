@@ -83,13 +83,22 @@ def select_all():
 
 def search():
     def execute_search():
-        pass
+        target = entry1.get()
+        start = '1.0'
+        while True:
+            pos = textPad.search(target, start, 'end')
+            if not pos:
+                break
+            textPad.tag_add('selection', pos)
+            start = pos + '+1c'
+        textPad.tag_config('selection', background='yellow', foreground='green')
+        topSearch.destroy()
 
     topSearch = tk.Toplevel(root)
     topSearch.geometry('300x30+200+250')
     label1 = tk.Label(topSearch, text='Find')
     label1.grid(row=0, column=0, padx=5)
-    entry1 = tk.Entry(topSearch, width=20)
+    entry1 = tk.Entry(topSearch, width=24)
     entry1.grid(row=0, column=1, padx=5)
     button1 = tk.Button(topSearch, text='查找', command=execute_search)
     button1.grid(row=0, column=2)
